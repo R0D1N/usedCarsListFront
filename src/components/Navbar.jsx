@@ -19,7 +19,7 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-md bg-body-tertiary border-bottom">
       <div className="container-fluid">
         <a className="navbar-brand" href="/">
-          ChinaRio
+          China RIA
         </a>
         <button
           className="navbar-toggler"
@@ -33,9 +33,7 @@ const Navbar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navBar">
-          <ul className="navbar-nav me-auto mb-2 mb-md-0">
-            {NAV_LINKS.map(renderNavLink)}
-          </ul>
+          <ul className="navbar-nav">{NAV_LINKS.map(renderNavLink)}</ul>
         </div>
       </div>
     </nav>

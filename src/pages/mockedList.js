@@ -3,15 +3,20 @@ const mockedList = [
     id: 1,
     brand: "BMW",
     model: "i7",
-    year: 2020,
-    color: "black",
-    price: 110500,
-    mileage: 10000,
+    year: 2023,
+    color: "silver",
+    price: 107900,
     image:
       "https://www.bmw.ua/content/dam/bmw/common/all-models/i-series/i7/2022/Highlights/bmw-7-series-i7-cp-design-exterior-desktop.jpg",
     description:
       "BMW is a German multinational manufacturer of luxury vehicles, including performance and sports cars, SUVs, and light commercial vehicles. The BMW brand is owned by Bayerische Motoren Werke AG (BMW AG), founded in Munich in 1916. BMW is renowned for its engineering excellence and driving dynamics. Popular models include the 3 Series, 5 Series, 7 Series, X5, and the electric i Series.",
-    url: "https://www.bmw.com/en/index",
+    generation: ["G70", "60 101.7 kWh (544 к.с.) xDrive", "M Sport"],
+    characteristic: {
+      mileage: 45000,
+      type: "Electric",
+      city: "Rivne",
+      gearBox: "Automatic",
+    },
   },
   {
     id: 2,
@@ -109,6 +114,31 @@ const mockedList = [
     description:
       "Tesla, Inc. is an American electric vehicle and clean energy company founded in 2003. The Model Y is a compact electric crossover SUV that shares many components with the Model 3. It offers versatility, ample cargo space, and the option for a third-row seat, making it a popular choice among electric SUVs.",
     url: "https://www.tesla.com/modely",
+    characteristic: {
+      mileage: 62400,
+      type: "Electric",
+      city: "Dnipro",
+      gearBox: "Automatic",
+    },
+  },
+  {
+    id: 9,
+    brand: "Tesla",
+    model: "Model Y",
+    year: 2022,
+    color: "white",
+    price: 29500,
+    image:
+      "https://electro-motors.top/image/cache/catalog/electrocars/TeslaY/teslay-1200x800.jpeg",
+    description:
+      "Tesla, Inc. is an American electric vehicle and clean energy company founded in 2003. The Model Y is a compact electric crossover SUV that shares many components with the Model 3. It offers versatility, ample cargo space, and the option for a third-row seat, making it a popular choice among electric SUVs.",
+    url: "https://www.tesla.com/modely",
+    characteristic: {
+      mileage: 35000,
+      type: "Electric",
+      city: "Lviv",
+      gearBox: "Automatic",
+    },
   },
 ];
 
