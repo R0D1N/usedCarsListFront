@@ -5,7 +5,7 @@ const mockedList = [
     model: "i7",
     year: 2020,
     color: "black",
-    price: 10000,
+    price: 110500,
     mileage: 10000,
     image:
       "https://www.bmw.ua/content/dam/bmw/common/all-models/i-series/i7/2022/Highlights/bmw-7-series-i7-cp-design-exterior-desktop.jpg",
