@@ -25,6 +25,7 @@ const useFetchData = (fetchMethods) => {
         setData(transformArrayToObject(dataResponse));
         setLoading(false);
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error("Error:", error);
         setErrors((prev) => [...prev, error]);
         setLoading(false);
@@ -32,7 +33,7 @@ const useFetchData = (fetchMethods) => {
     })();
   };
 
-  useEffect(dataEffect, []);
+  useEffect(dataEffect, [fetchMethods]);
 
   return { ...data, loading, errors };
 };

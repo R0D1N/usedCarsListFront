@@ -1,5 +1,8 @@
-import { getAllBrands, getAllModels } from "../../../helpers/cars-functions.js";
-import { getYears } from "../../../helpers/filter-functions.js";
+import {
+  getAllBrands,
+  getAllModels,
+  getYears,
+} from "../../../helpers/cars-functions.js";
 
 const FILTERS_CONFIG = ({ cars, searchParams }) => [
   {

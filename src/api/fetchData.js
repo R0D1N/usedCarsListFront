@@ -19,9 +19,7 @@ const DEFAULT_ERROR = "Unknown error";
 
 const get =
   (options) =>
-  async ({ url, queryParams, errorMessage = DEFAULT_ERROR }) => {
-    const params = new URLSearchParams(queryParams);
-    const urlWithParams = `${url}?${params.toString()}`;
+  async ({ url, errorMessage = DEFAULT_ERROR }) => {
     try {
       const response = await fetch(url, options);
       if (!response.ok) {
@@ -29,6 +27,7 @@ const get =
       }
       return response.json();
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error("Fetch Error:", error);
       throw error;
     }
@@ -50,6 +49,7 @@ const post =
       }
       return response.json();
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error("Fetch Error:", error);
       throw error;
     }

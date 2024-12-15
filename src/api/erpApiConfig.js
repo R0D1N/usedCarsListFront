@@ -1,4 +1,4 @@
-import { getData, postData } from "./fetchData.js";
+import { getData } from "./fetchData.js";
 
 const erpApiConfig = (baseURL) => [
   {
