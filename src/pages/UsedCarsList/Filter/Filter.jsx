@@ -2,6 +2,7 @@ import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { removeNullishFields } from "../../../helpers/object.js";
 import FILTERS_CONFIG from "./filterConfig.js";
+import RangeSlider from "../../../components/RangeSlider/RangeSlider.jsx";
 
 const renderActionButtons = (handleClearFilter) => {
   return (
@@ -37,6 +38,7 @@ const renderSelect = ({ placeholder, queryParam, value, options }) => {
     </select>
   );
 };
+const renderRangeSlider = (config) => <RangeSlider />;
 
 const renderFilter = (config) => {
   return (
@@ -45,12 +47,15 @@ const renderFilter = (config) => {
         {config.title}
       </label>
       {config.type === "select" && renderSelect(config)}
+      {config.type === "rangeSlider" && renderRangeSlider(config)}
     </div>
   );
 };
 
 const Filter = ({ cars }) => {
   const [searchParams, setSearchParams] = useSearchParams();
+  console.log("searchParams", searchParams);
+  console.log("cars", cars);
   const filters = FILTERS_CONFIG({ cars, searchParams });
 
   const handleClearFilter = () => setSearchParams({});
@@ -65,7 +70,6 @@ const Filter = ({ cars }) => {
     });
 
     const mappedParams = removeNullishFields(params);
-
     setSearchParams(mappedParams);
   };
 

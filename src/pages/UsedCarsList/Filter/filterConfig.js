@@ -45,6 +45,16 @@ const FILTERS_CONFIG = ({ cars, searchParams }) => [
     placeholder: "To",
     filterFn: (value) => value <= searchParams.get("year to"),
   },
+  {
+    title: "Year to",
+    field: "year",
+    queryParam: "lte gte",
+    type: "rangeSlider",
+    options: getYears(cars),
+    value: searchParams.get("lte gte") || "",
+    placeholder: "To",
+    filterFn: (value) => value <= searchParams.get("lte gte"),
+  },
 ];
 
 export default FILTERS_CONFIG;
