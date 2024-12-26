@@ -7,35 +7,42 @@ const transformArrayToObject = (arr, key = "name", value = "response") => {
   }, {});
 };
 
-const useFetchData = (fetchMethods) => {
+const useFetchData = (initialFetchMethods) => {
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-  const dataEffect = () => {
-    (async () => {
-      try {
-        const dataResponse = await Promise.all(
-          fetchMethods.map(({ name, method, body, queryParams }) =>
-            method({ body, queryParams }).then((response) => {
-              return { name, response };
-            }),
-          ),
-        );
+  const [fetchMethods] = useState(initialFetchMethods);
 
-        setData(transformArrayToObject(dataResponse));
-        setLoading(false);
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error("Error:", error);
-        setErrors((prev) => [...prev, error]);
-        setLoading(false);
-      }
-    })();
+  const fetchData = async (methods = fetchMethods) => {
+    setLoading(true);
+    setErrors([]);
+    try {
+      const dataResponse = await Promise.all(
+        methods.map(({ name, method, body, query }) =>
+          method({ body, query }).then((response) => {
+            return { name, response };
+          }),
+        ),
+      );
+
+      setData(transformArrayToObject(dataResponse));
+    } catch (error) {
+      console.error("Error:", error);
+      setErrors((prev) => [...prev, error]);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  useEffect(dataEffect, [fetchMethods]);
+  const refetch = (newFetchMethods) => {
+    if (newFetchMethods) fetchData(newFetchMethods);
+  };
 
-  return { ...data, loading, errors };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  return { ...data, loading, errors, refetch };
 };
 
 export default useFetchData;

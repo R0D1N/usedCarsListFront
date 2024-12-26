@@ -1,4 +1,4 @@
-import erpApiConfig from "./erpApiConfig.js";
+import erpApiConfig from "./carsApiConfig.js";
 
 export { endpointReducer, apiMethods };
 
@@ -6,7 +6,7 @@ const baseUrl = import.meta.env?.VITE_API_BASE_URL;
 
 const endpointReducer = (accumulator, endpoint) => {
   const { name, url, method, errorMessage } = endpoint;
-  accumulator[name] = () => method({ url, errorMessage });
+  accumulator[name] = ({ query }) => method({ url, errorMessage, query });
   return accumulator;
 };
 

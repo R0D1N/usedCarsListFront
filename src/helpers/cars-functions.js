@@ -1,3 +1,5 @@
+import pipe from "./fp.js";
+
 const getAllBrands = (cars) => {
   const brands = cars.map((car) => car.brand);
   return [...new Set(brands)];
@@ -13,6 +15,29 @@ const getYears = (cars) => {
   return [...new Set(years)].sort((a, b) => a - b);
 };
 
-export { getAllBrands, normalizeFilter, getAllModels, getYears };
+const setImages = (car) => {
+  return {
+    ...car,
+    images: [car.thumbnail],
+  };
+};
+
+const formatePrice = (car) => {
+  const price = +car.price / 10;
+  return {
+    ...car,
+    price,
+  };
+};
+
+const carsListMapper = pipe(setImages, formatePrice);
+
+export {
+  getAllBrands,
+  normalizeFilter,
+  getAllModels,
+  getYears,
+  carsListMapper,
+};
 
 const normalizeFilter = (searchText = "") => searchText.trim().toLowerCase();

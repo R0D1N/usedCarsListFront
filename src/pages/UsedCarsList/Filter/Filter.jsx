@@ -27,6 +27,7 @@ const renderSelect = ({ placeholder, queryParam, value, options }) => {
       id={queryParam}
       name={queryParam}
       defaultValue={value || ""}
+      key={queryParam}
     >
       <option value="">{placeholder}</option>
       {options.map((option) => (
@@ -40,7 +41,7 @@ const renderSelect = ({ placeholder, queryParam, value, options }) => {
 
 const renderFilter = (config) => {
   return (
-    <div className="mb-3" key={config.queryParam}>
+    <div className="mb-3" key={config.field}>
       <label className="form-label" htmlFor={config.queryParam}>
         {config.title}
       </label>
@@ -49,7 +50,7 @@ const renderFilter = (config) => {
   );
 };
 
-const Filter = ({ cars }) => {
+function Filter({ cars }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const filters = FILTERS_CONFIG({ cars, searchParams });
 
@@ -81,6 +82,6 @@ const Filter = ({ cars }) => {
       </div>
     </div>
   );
-};
+}
 
 export default Filter;

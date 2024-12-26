@@ -19,11 +19,11 @@ const renderImage = (images, record) => {
   );
 };
 
-const renderHeading = (brand, model, year, record) => {
+const renderHeading = (title, record) => {
   return (
     <div className="mb-1">
       <Link className="fs-5 text-decoration-none" to={`/car/${record}`}>
-        {brand} {model} {year}
+        {title}
       </Link>
     </div>
   );
@@ -39,14 +39,12 @@ const renderDescription = (description) => {
 
 function CarCard({
   images,
-  model,
   description,
-  brand,
   record,
-  year,
   generation = [],
   price,
   characteristic = {},
+  title,
 }) {
   return (
     <section className="col mb-3">
@@ -55,7 +53,7 @@ function CarCard({
           <div className="col-5">{renderImage(images, record)}</div>
           <div className="col-7">
             <div className="card-body">
-              {renderHeading(brand, model, year, record)}
+              {renderHeading(title, record)}
               <Generation generation={generation} />
               <Price price={price} />
               <Characteristic characteristic={characteristic} />

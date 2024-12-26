@@ -19,9 +19,11 @@ const DEFAULT_ERROR = "Unknown error";
 
 const get =
   (options) =>
-  async ({ url, errorMessage = DEFAULT_ERROR }) => {
+  async ({ url, errorMessage = DEFAULT_ERROR, query }) => {
+    const params = new URLSearchParams(query);
+    const urlWithParams = `${url}?${params.toString()}`;
     try {
-      const response = await fetch(url, options);
+      const response = await fetch(urlWithParams, options);
       if (!response.ok) {
         throw new Error(`Error: ${errorMessage}`);
       }
@@ -35,8 +37,8 @@ const get =
 
 const post =
   (options) =>
-  async ({ url, body, queryParams, errorMessage = DEFAULT_ERROR }) => {
-    const params = new URLSearchParams(queryParams);
+  async ({ url, body, query, errorMessage = DEFAULT_ERROR }) => {
+    const params = new URLSearchParams(query);
     const urlWithParams = `${url}?${params.toString()}`;
     const headers = {
       ...options,

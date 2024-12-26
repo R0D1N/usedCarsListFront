@@ -12,7 +12,9 @@ const filterList = (cars, searchParams) => {
 
     const filterConfig = FILTERS_CONFIG({ cars, searchParams });
 
-    const { filterFn, field } = filterConfig.find(findFilter(key));
+    const { filterFn, field } = filterConfig.find(findFilter(key)) || {};
+
+    if (!filterFn || !field) continue;
 
     filteredList = filteredList.filter(filterCar(filterFn, field));
   }

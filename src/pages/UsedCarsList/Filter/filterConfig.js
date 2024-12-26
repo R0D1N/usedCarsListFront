@@ -28,22 +28,22 @@ const FILTERS_CONFIG = ({ cars, searchParams }) => [
   {
     title: "Year from",
     field: "year",
-    queryParam: "year from",
+    queryParam: "year_from",
     type: "select",
     options: getYears(cars),
-    value: searchParams.get("year from") || "",
+    value: searchParams.get("year_from") || "",
     placeholder: "From",
-    filterFn: (value) => value >= searchParams.get("year from"),
+    filterFn: (value) => value >= searchParams.get("year_from"),
   },
   {
     title: "Year to",
     field: "year",
-    queryParam: "year to",
+    queryParam: "year_to",
     type: "select",
     options: getYears(cars),
-    value: searchParams.get("year to") || "",
+    value: searchParams.get("year_to") || "",
     placeholder: "To",
-    filterFn: (value) => value <= searchParams.get("year to"),
+    filterFn: (value) => value <= searchParams.get("year_to"),
   },
 ];
 

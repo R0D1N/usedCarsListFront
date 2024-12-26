@@ -13,6 +13,12 @@ const erpApiConfig = (baseURL) => [
     method: getData,
     errorMessage: "Failed to get dashboard",
   },
+  {
+    name: "getCarsList",
+    url: "http://localhost:3000/api/v1/cars",
+    method: getData,
+    errorMessage: "Failed to get cars list",
+  },
 ];
 
 export default erpApiConfig;
