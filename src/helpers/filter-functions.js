@@ -10,6 +10,7 @@ const filterList = (cars, searchParams) => {
   for (const pair of searchParams.entries()) {
     const [key] = pair;
 
+    console.log("key", key);
     const filterConfig = FILTERS_CONFIG({ cars, searchParams });
 
     const { filterFn, field } = filterConfig.find(findFilter(key)) || {};
