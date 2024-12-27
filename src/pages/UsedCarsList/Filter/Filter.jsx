@@ -39,13 +39,23 @@ const renderSelect = ({ placeholder, queryParam, value, options }) => {
   );
 };
 
+const renderFilterConfig = (type, config) => {
+  const renderers = {
+    select: renderSelect,
+    range: RangeComponent,
+  };
+
+  const renderFunction = renderers[type];
+  return renderFunction ? renderFunction(config) : null;
+};
+
 const renderFilter = (config) => {
   return (
     <div className="mb-3" key={config.field}>
       <label className="form-label" htmlFor={config.queryParam}>
         {config.title}
       </label>
-      {config.type === "select" && renderSelect(config)}
+      {renderFilterConfig(config.type, config)}
     </div>
   );
 };
