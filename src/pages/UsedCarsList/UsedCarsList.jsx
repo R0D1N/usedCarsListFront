@@ -61,8 +61,6 @@ function UsedCarsList() {
     },
   );
 
-  //  const filteredArray = filterList(mappedList, searchParams);
-
   return (
     <div className="row g-4">
       <div ref={navRef} className="col-12 col-md-12 col-lg-3">
@@ -75,7 +73,11 @@ function UsedCarsList() {
         ) : (
           mappedList.map((car) => <CarCard key={car.record} {...car} />)
         )}
-        <Pagination currentPage={page} totalPages={getCarsList?.totalPages} />
+        <Pagination
+          currentPage={page}
+          totalPages={getCarsList?.totalPages}
+          searchParams={searchParams}
+        />
       </div>
     </div>
   );

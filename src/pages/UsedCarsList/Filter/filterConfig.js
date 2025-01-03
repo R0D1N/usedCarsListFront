@@ -1,3 +1,14 @@
+const YEARS = [
+  { title: 2018, value: 2018 },
+  { title: 2019, value: 2019 },
+  { title: 2020, value: 2020 },
+  { title: 2021, value: 2021 },
+  { title: 2022, value: 2022 },
+  { title: 2023, value: 2023 },
+  { title: 2024, value: 2024 },
+  { title: 2025, value: 2025 },
+];
+
 const FILTERS_CONFIG = ({ brands, models, searchParams }) => [
   {
     title: "Brand",
@@ -21,32 +32,23 @@ const FILTERS_CONFIG = ({ brands, models, searchParams }) => [
   },
   {
     title: "Year from",
-    field: "year",
-    queryParam: "year_from",
+    field: "year_min",
+    queryParam: "year_min",
     type: "select",
-    options: [
-      { title: 2018, value: 2018 },
-      2019,
-      2020,
-      2021,
-      2022,
-      2023,
-      2024,
-      2025,
-    ],
-    value: searchParams.get("year_from") || "",
+    options: YEARS,
+    value: searchParams.get("year_min") || "",
     placeholder: "From",
-    filterFn: (value) => value >= searchParams.get("year_from"),
+    filterFn: (value) => value >= searchParams.get("year_min"),
   },
   {
     title: "Year to",
-    field: "year",
-    queryParam: "year_to",
+    field: "year_max",
+    queryParam: "year_max",
     type: "select",
-    options: [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
-    value: searchParams.get("year_to") || "",
+    options: YEARS,
+    value: searchParams.get("year_max") || "",
     placeholder: "To",
-    filterFn: (value) => value <= searchParams.get("year_to"),
+    filterFn: (value) => value <= searchParams.get("year_max"),
   },
 ];
 

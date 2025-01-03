@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { removeNullishFields } from "../../../helpers/object.js";
 import FILTERS_CONFIG from "./filterConfig.js";
@@ -20,14 +20,21 @@ const renderActionButtons = (handleClearFilter) => {
   );
 };
 
-const renderSelect = ({ placeholder, queryParam, value, options = [] }) => {
+function RenderSelect({ placeholder, queryParam, value, options = [] }) {
+  const [selectedValue, setSelectedValue] = useState(value);
+
+  useEffect(() => {
+    setSelectedValue(value);
+  }, [value]);
+
   return (
     <select
       className="form-select"
       id={queryParam}
       name={queryParam}
-      defaultValue={value || ""}
+      value={selectedValue}
       key={queryParam}
+      onChange={(event) => setSelectedValue(event.target.value)}
     >
       <option value="">{placeholder}</option>
       {options.map((option) => (
@@ -37,7 +44,7 @@ const renderSelect = ({ placeholder, queryParam, value, options = [] }) => {
       ))}
     </select>
   );
-};
+}
 
 const renderFilter = (config) => {
   return (
@@ -45,14 +52,20 @@ const renderFilter = (config) => {
       <label className="form-label" htmlFor={config.queryParam}>
         {config.title}
       </label>
-      {config.type === "select" && renderSelect(config)}
+      {config.type === "select" && RenderSelect(config)}
     </div>
   );
 };
 
 function Filter({ brands }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const filters = FILTERS_CONFIG({ searchParams, brands, models: [] });
+  const [filters, setFilters] = useState(
+    FILTERS_CONFIG({ searchParams, brands }),
+  );
+
+  useEffect(() => {
+    setFilters(FILTERS_CONFIG({ searchParams, brands }));
+  }, [searchParams, brands]);
 
   const handleClearFilter = () => setSearchParams({});
 

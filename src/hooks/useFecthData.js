@@ -1,16 +1,21 @@
 import { useEffect, useState } from "react";
 
-const transformArrayToObject = (arr, key = "name", value = "response") => {
+const transformArrayToObject = (
+  data,
+  arr,
+  key = "name",
+  value = "response",
+) => {
   return arr.reduce((acc, item) => {
     acc[item[key]] = item[value];
     return acc;
-  }, {});
+  }, data);
 };
 
 const useFetchData = (initialFetchMethods) => {
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
   const [fetchMethods] = useState(initialFetchMethods);
 
   const fetchData = async (methods = fetchMethods) => {
@@ -25,7 +30,7 @@ const useFetchData = (initialFetchMethods) => {
         ),
       );
 
-      setData(transformArrayToObject(dataResponse));
+      setData(transformArrayToObject(data, dataResponse));
     } catch (error) {
       console.error("Error:", error);
       setErrors((prev) => [...prev, error]);

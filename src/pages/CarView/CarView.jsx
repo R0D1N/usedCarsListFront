@@ -46,7 +46,6 @@ function CarView() {
   ]);
 
   if (loading) return <Loader />;
-  console.log(car[0]);
 
   const {
     images,
@@ -67,6 +66,7 @@ function CarView() {
           images={images}
           activeImage={activeImage}
           setActiveImage={setActiveImage}
+          x
         />
         <div className="hstack gap-3 overflow-x-auto">
           {images.map(renderImageList(activeImage, setActiveImage))}
