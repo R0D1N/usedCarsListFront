@@ -20,7 +20,7 @@ const renderActionButtons = (handleClearFilter) => {
   );
 };
 
-const renderSelect = ({ placeholder, queryParam, value, options }) => {
+const renderSelect = ({ placeholder, queryParam, value, options = [] }) => {
   return (
     <select
       className="form-select"
@@ -31,8 +31,8 @@ const renderSelect = ({ placeholder, queryParam, value, options }) => {
     >
       <option value="">{placeholder}</option>
       {options.map((option) => (
-        <option key={option} value={option}>
-          {option}
+        <option key={option.value} value={option.value}>
+          {option.title}
         </option>
       ))}
     </select>
@@ -50,9 +50,9 @@ const renderFilter = (config) => {
   );
 };
 
-function Filter({ cars }) {
+function Filter({ brands }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const filters = FILTERS_CONFIG({ cars, searchParams });
+  const filters = FILTERS_CONFIG({ searchParams, brands, models: [] });
 
   const handleClearFilter = () => setSearchParams({});
 

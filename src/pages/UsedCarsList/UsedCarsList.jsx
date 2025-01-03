@@ -1,30 +1,38 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
-import { filterList } from "../../helpers/filter-functions.js";
+import { apiMethods } from "../../api/apiMethods.js";
+import Loader from "../../components/Loader/Loader.jsx";
+import Pagination from "../../components/Pagination.jsx";
 import { carsListMapper } from "../../helpers/cars-functions.js";
+import useFetchData from "../../hooks/useFecthData.js";
 import CarCard from "./Card/CarCard.jsx";
 import Filter from "./Filter/Filter.jsx";
-import { apiMethods } from "../../api/apiMethods.js";
-import useFetchData from "../../hooks/useFecthData.js";
-import Pagination from "../../components/Pagination.jsx";
-import Loader from "../../components/Loader/Loader.jsx";
 
 const scrollToNav = (navRef) => {
   navRef.current.scrollIntoView({ behavior: "smooth" });
 };
 
+const searchParamsObject = (params) => {
+  return params.entries().reduce((acc, current) => {
+    return { ...acc, [current[0]]: current[1] };
+  }, {});
+};
+
 function UsedCarsList() {
   const isFirstRender = useRef(true);
   const [searchParams] = useSearchParams();
-  const [placeholderVisibility, setPlaceholderVisibility] = useState(true);
   const page = Number(searchParams.get("page")) || 1;
   const navRef = useRef(null);
 
-  const { getCarsList, loading, refetch } = useFetchData([
+  const { getCarsList, getBrandList, loading, refetch } = useFetchData([
     {
       name: "getCarsList",
       method: apiMethods.getCarsList,
-      query: { page },
+      query: { page, ...searchParamsObject(searchParams) },
+    },
+    {
+      name: "getBrandList",
+      method: apiMethods.getBrandList,
     },
   ]);
 
@@ -34,38 +42,40 @@ function UsedCarsList() {
       return;
     }
     scrollToNav(navRef);
-    setPlaceholderVisibility(true);
     refetch([
       {
         name: "getCarsList",
         method: apiMethods.getCarsList,
-        query: { page },
+        query: { page, ...searchParamsObject(searchParams) },
       },
     ]);
-  }, [page]);
+  }, [page, searchParams]);
 
-  useEffect(() => {
-    const placeholderTime = 250;
-    setTimeout(() => setPlaceholderVisibility(false), placeholderTime);
-  }, [placeholderVisibility]);
+  const mappedList = getCarsList?.results.map(carsListMapper) || [];
+  const mappedBrands = getBrandList?.results.map(
+    ({ brand, brand_id: brandId }) => {
+      return {
+        title: brand,
+        value: brandId,
+      };
+    },
+  );
 
-  if (loading || placeholderVisibility) return <Loader />;
-
-  const mappedList = getCarsList.results.map(carsListMapper);
-  const filteredArray = filterList(mappedList, searchParams);
+  //  const filteredArray = filterList(mappedList, searchParams);
 
   return (
     <div className="row g-4">
       <div ref={navRef} className="col-12 col-md-12 col-lg-3">
-        <Filter cars={mappedList} />
+        <Filter brands={mappedBrands} />
       </div>
 
       <div className="col-12 col-md-12 col-lg-9">
-        <Pagination currentPage={page} totalPages={getCarsList.totalPages} />
-        {filteredArray.map((car) => (
-          <CarCard key={car.record} {...car} />
-        ))}
-        <Pagination currentPage={page} totalPages={getCarsList.totalPages} />
+        {loading ? (
+          <Loader />
+        ) : (
+          mappedList.map((car) => <CarCard key={car.record} {...car} />)
+        )}
+        <Pagination currentPage={page} totalPages={getCarsList?.totalPages} />
       </div>
     </div>
   );

@@ -18,8 +18,8 @@ const useFetchData = (initialFetchMethods) => {
     setErrors([]);
     try {
       const dataResponse = await Promise.all(
-        methods.map(({ name, method, body, query }) =>
-          method({ body, query }).then((response) => {
+        methods.map(({ name, method, body, query, params }) =>
+          method({ body, query, params }).then((response) => {
             return { name, response };
           }),
         ),

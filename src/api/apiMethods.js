@@ -6,7 +6,8 @@ const baseUrl = import.meta.env?.VITE_API_BASE_URL;
 
 const endpointReducer = (accumulator, endpoint) => {
   const { name, url, method, errorMessage } = endpoint;
-  accumulator[name] = ({ query }) => method({ url, errorMessage, query });
+  accumulator[name] = ({ query, params }) =>
+    method({ url, errorMessage, query, params });
   return accumulator;
 };
 
