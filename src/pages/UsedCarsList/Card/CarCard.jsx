@@ -43,7 +43,6 @@ function CarCard({
   record,
   generation = [],
   price,
-  characteristic = {},
   title,
 }) {
   return (
@@ -56,7 +55,6 @@ function CarCard({
               {renderHeading(title, record)}
               <Generation generation={generation} />
               <Price price={price} />
-              <Characteristic characteristic={characteristic} />
               {renderDescription(description)}
             </div>
           </div>
