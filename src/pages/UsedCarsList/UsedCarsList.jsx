@@ -68,6 +68,7 @@ function UsedCarsList() {
       </div>
 
       <div className="col-12 col-md-12 col-lg-9">
+        <p>Результатов: {getCarsList?.totalItems}</p>
         {loading ? (
           <Loader />
         ) : (
