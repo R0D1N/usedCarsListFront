@@ -17,14 +17,14 @@ const formatePrice = (car) => {
 
 const carsListMapper = pipe(setImages, formatePrice);
 
-const renameFields = ({ brand, brand_id: brandId }) => {
+const renameFieldsBrands = ({ brand, brand_id: brandId }) => {
   return {
     title: brand,
     value: brandId,
   };
 };
 
-const brandListMapper = pipe(renameFields);
+const brandListMapper = pipe(renameFieldsBrands);
 
 const parseImages = (car) => {
   return {
@@ -63,4 +63,13 @@ const carMapper = pipe(
   formatePrice,
 );
 
-export { carsListMapper, brandListMapper, carMapper };
+const renameFieldsModels = ({ series, series_id: seriesId }) => {
+  return {
+    title: series,
+    value: seriesId,
+  };
+};
+
+const modelMapper = pipe(renameFieldsModels);
+
+export { carsListMapper, brandListMapper, carMapper, modelMapper };

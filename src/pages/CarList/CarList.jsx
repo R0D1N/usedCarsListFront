@@ -21,7 +21,7 @@ function CarList() {
   const page = Number(searchParams.get("page")) || 1;
   const filterRef = useRef(null);
 
-  const { carsList, getBrandList, loading, refetch } = useFetchData([
+  const { carsList, getBrandList, loading, refetch, errors } = useFetchData([
     {
       name: "carsList",
       method: apiMethods.getCarsList,
@@ -48,6 +48,8 @@ function CarList() {
     ]);
   }, [page, searchParams]);
 
+  if (loading) return <Loader />;
+
   const mappedList = carsList?.results.map(carsListMapper) || [];
   const mappedBrands = getBrandList?.results.map(brandListMapper) || [];
 
@@ -57,9 +59,7 @@ function CarList() {
         <Filter brands={mappedBrands} />
       </div>
       <div className="col-12 col-md-12 col-lg-9">
-        {loading ? (
-          <Loader />
-        ) : (
+        {!errors.length ? (
           <>
             <p>Результатов: {carsList?.totalItems}</p>
             {mappedList.map((car) => (
@@ -71,6 +71,8 @@ function CarList() {
               searchParams={searchParams}
             />
           </>
+        ) : (
+          <p>No results</p>
         )}
       </div>
     </div>

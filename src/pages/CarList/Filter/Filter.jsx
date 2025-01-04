@@ -6,13 +6,12 @@ import FILTERS_CONFIG from "./filterConfig.js";
 const renderActionButtons = (handleClearFilter) => {
   return (
     <div className="hstack justify-content-between">
-      <button
+      <input
         className="btn btn-outline-secondary"
         type="reset"
         onClick={handleClearFilter}
-      >
-        Clear
-      </button>
+        value="Clear"
+      />
       <button className="btn btn-outline-success" type="submit">
         Apply
       </button>
@@ -20,12 +19,23 @@ const renderActionButtons = (handleClearFilter) => {
   );
 };
 
-function RenderSelect({ placeholder, queryParam, value, options = [] }) {
+function RenderSelect({
+  placeholder,
+  queryParam,
+  value,
+  options,
+  onChangeHandler,
+  setFilters,
+}) {
   const [selectedValue, setSelectedValue] = useState(value);
 
   useEffect(() => {
     setSelectedValue(value);
   }, [value]);
+
+  useEffect(() => {
+    onChangeHandler(selectedValue, setFilters);
+  }, [selectedValue]);
 
   return (
     <select
@@ -46,26 +56,25 @@ function RenderSelect({ placeholder, queryParam, value, options = [] }) {
   );
 }
 
-const renderFilter = (config) => {
-  return (
-    <div className="mb-3" key={config.field}>
-      <label className="form-label" htmlFor={config.queryParam}>
-        {config.title}
-      </label>
-      {config.type === "select" && RenderSelect(config)}
-    </div>
-  );
-};
+const renderFilter = (setFilters) =>
+  function filter(config) {
+    return (
+      <div className="mb-3" key={config.field}>
+        <label className="form-label" htmlFor={config.queryParam}>
+          {config.title}
+        </label>
+        {config.type === "select" && (
+          <RenderSelect {...config} setFilters={setFilters} />
+        )}
+      </div>
+    );
+  };
 
 function Filter({ brands }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [filters, setFilters] = useState(
     FILTERS_CONFIG({ searchParams, brands }),
   );
-
-  useEffect(() => {
-    setFilters(FILTERS_CONFIG({ searchParams, brands }));
-  }, [searchParams, brands]);
 
   const handleClearFilter = () => setSearchParams({});
 
@@ -87,8 +96,8 @@ function Filter({ brands }) {
     <div className="mb-3">
       <div>
         <div className="card card-body border-0">
-          <form role="filter" onSubmit={handleFormSubmit}>
-            {filters.map(renderFilter)}
+          <form onSubmit={handleFormSubmit}>
+            {filters.map(renderFilter(setFilters))}
             {renderActionButtons(handleClearFilter)}
           </form>
         </div>
