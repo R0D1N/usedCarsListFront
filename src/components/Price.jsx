@@ -7,7 +7,7 @@ function Price({ price }) {
     <div className="mb-1 hstack gap-2">
       <span className="h4 text-success">{price} $</span>
       <span className="text-muted">•</span>
-      <span className="fs-6">{(price * dollarValue).toFixed(0)} грн з ПДВ</span>
+      <span className="fs-6">{(price * dollarValue).toFixed(0)} грн</span>
     </div>
   );
 }

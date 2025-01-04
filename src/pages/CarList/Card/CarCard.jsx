@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import React from "react";
 import "./style.sass";
 import Price from "../../../components/Price.jsx";
-import Generation from "../../../components/Generation.jsx";
 
 const renderImage = (images, record) => {
   if (!images.length) return null;
@@ -28,22 +27,7 @@ const renderHeading = (title, record) => {
   );
 };
 
-const renderDescription = (description) => {
-  return (
-    <div className="text-truncate w-100">
-      <span>{description}</span>
-    </div>
-  );
-};
-
-function CarCard({
-  images,
-  description,
-  record,
-  generation = [],
-  price,
-  title,
-}) {
+function CarCard({ images, record, price, title }) {
   return (
     <section className="col mb-3">
       <div className="card border-0">
@@ -52,9 +36,7 @@ function CarCard({
           <div className="col-7">
             <div className="card-body">
               {renderHeading(title, record)}
-              <Generation generation={generation} />
               <Price price={price} />
-              {renderDescription(description)}
             </div>
           </div>
         </div>

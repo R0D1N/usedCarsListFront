@@ -1,11 +1,12 @@
 import "./style.sass";
 import { useParams } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Price from "../../components/Price.jsx";
 import Carousel from "../../components/Carousel.jsx";
 import { apiMethods } from "../../api/apiMethods.js";
 import useFetchData from "../../hooks/useFecthData.js";
 import Loader from "../../components/Loader/Loader.jsx";
+import { carMapper } from "../../helpers/cars-functions.js";
 
 const renderImageList = (activeImage, setActiveImage) =>
   function (imageSrc) {
@@ -63,6 +64,7 @@ const renderCarInfo = (carInfo) => {
 
 function CarView() {
   const { id } = useParams();
+  const [activeImage, setActiveImage] = useState("");
   const { car, loading } = useFetchData([
     {
       name: "car",
@@ -71,44 +73,28 @@ function CarView() {
     },
   ]);
 
-  const [activeImage, setActiveImage] = useState("");
-
   if (loading) return <Loader />;
 
-  const { images, description, brand, price, year, generation } = car[0];
-  const parsedImages = JSON.parse(images);
+  const mappedCar = carMapper(car[0]);
 
-  if (!activeImage && parsedImages.length > 0) {
-    setActiveImage(parsedImages[0]);
-  }
-
-  const mappedCar = {
-    images: parsedImages,
-    title: car[0].title,
-    carInfo: JSON.parse(car[0].carinfo),
-    characteristics: JSON.parse(car[0].Characteristics),
-    brand,
-    price,
-    year,
-    generation,
-  };
+  if (!activeImage && mappedCar.images.length > 0)
+    setActiveImage(mappedCar.images[0]);
 
   return (
     <div className="row">
       <div className="col-md-6 mb-3">
         <Carousel
-          images={parsedImages}
+          images={mappedCar.images}
           activeImage={activeImage}
           setActiveImage={setActiveImage}
         />
         <div className="hstack gap-3 overflow-x-auto">
-          {parsedImages.map(renderImageList(activeImage, setActiveImage))}
+          {mappedCar.images.map(renderImageList(activeImage, setActiveImage))}
         </div>
       </div>
       <div className="col-md-6">
         {renderTitle(mappedCar.title)}
-        <Price price={price} />
-        <p className="mb-3">{description}</p>
+        <Price price={mappedCar.price} />
         <h2>Car info</h2>
         <div className="row">{renderCarInfo(mappedCar.carInfo)}</div>
       </div>

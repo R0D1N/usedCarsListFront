@@ -1,7 +1,7 @@
 import React from "react";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { createBrowserRouter } from "react-router-dom";
-import UsedCarsList from "./pages/UsedCarsList/UsedCarsList.jsx";
+import CarList from "./pages/CarList/CarList.jsx";
 import Layout from "./components/Layout.jsx";
 import CarView from "./pages/CarView/CarView.jsx";
 import About from "./pages/About.jsx";
@@ -16,7 +16,7 @@ export default createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <UsedCarsList />,
+        element: <CarList />,
       },
       {
         path: "car/:id",

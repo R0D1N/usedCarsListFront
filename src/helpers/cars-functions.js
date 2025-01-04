@@ -17,4 +17,50 @@ const formatePrice = (car) => {
 
 const carsListMapper = pipe(setImages, formatePrice);
 
-export { carsListMapper };
+const renameFields = ({ brand, brand_id: brandId }) => {
+  return {
+    title: brand,
+    value: brandId,
+  };
+};
+
+const brandListMapper = pipe(renameFields);
+
+const parseImages = (car) => {
+  return {
+    ...car,
+    images: JSON.parse(car.images),
+  };
+};
+
+const parseCarInfo = (car) => {
+  return {
+    ...car,
+    carInfo: JSON.parse(car.carinfo),
+  };
+};
+
+const parseCharacteristics = (car) => {
+  return {
+    ...car,
+    characteristics: JSON.parse(car.Characteristics),
+  };
+};
+
+const removeRepeatedImages = (car) => {
+  const images = new Set(car.images);
+  return {
+    ...car,
+    images: Array.from(images),
+  };
+};
+
+const carMapper = pipe(
+  parseImages,
+  parseCarInfo,
+  parseCharacteristics,
+  removeRepeatedImages,
+  formatePrice,
+);
+
+export { carsListMapper, brandListMapper, carMapper };

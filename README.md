@@ -1,6 +1,6 @@
 # UsedCardList
 
-List of used chinese cars
+CarList of used chinese cars
 
 ```bash
 http://localhost:5173
