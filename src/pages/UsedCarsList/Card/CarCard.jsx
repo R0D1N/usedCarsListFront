@@ -3,7 +3,6 @@ import React from "react";
 import "./style.sass";
 import Price from "../../../components/Price.jsx";
 import Generation from "../../../components/Generation.jsx";
-import Characteristic from "../../../components/Characteristic.jsx";
 
 const renderImage = (images, record) => {
   if (!images.length) return null;

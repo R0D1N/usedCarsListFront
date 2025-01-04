@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar.jsx";
 
-const Layout = () => {
+function Layout() {
   return (
     <>
       <div className="container-fluid mb-3 sticky-top">
@@ -12,6 +12,6 @@ const Layout = () => {
       </div>
     </>
   );
-};
+}
 
 export default Layout;

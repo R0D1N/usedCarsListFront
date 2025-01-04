@@ -14,7 +14,7 @@ const renderNavLink = ({ name, path }) => (
   </li>
 );
 
-const Navbar = () => {
+function Navbar() {
   return (
     <nav className="navbar navbar-expand-md bg-body-tertiary border-bottom">
       <div className="container-fluid">
@@ -30,7 +30,7 @@ const Navbar = () => {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon" />
         </button>
         <div className="collapse navbar-collapse" id="navBar">
           <ul className="navbar-nav">{NAV_LINKS.map(renderNavLink)}</ul>
@@ -38,6 +38,6 @@ const Navbar = () => {
       </div>
     </nav>
   );
-};
+}
 
 export default Navbar;

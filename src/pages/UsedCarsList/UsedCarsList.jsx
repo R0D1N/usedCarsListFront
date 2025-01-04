@@ -8,8 +8,8 @@ import useFetchData from "../../hooks/useFecthData.js";
 import CarCard from "./Card/CarCard.jsx";
 import Filter from "./Filter/Filter.jsx";
 
-const scrollToNav = (navRef) => {
-  navRef.current.scrollIntoView({ behavior: "smooth" });
+const scrollToNav = (element) => {
+  element.current.scrollIntoView({ behavior: "smooth" });
 };
 
 const searchParamsObject = (params) => {
@@ -24,9 +24,9 @@ function UsedCarsList() {
   const page = Number(searchParams.get("page")) || 1;
   const navRef = useRef(null);
 
-  const { getCarsList, getBrandList, loading, refetch } = useFetchData([
+  const { carsList, getBrandList, loading, refetch } = useFetchData([
     {
-      name: "getCarsList",
+      name: "carsList",
       method: apiMethods.getCarsList,
       query: { page, ...searchParamsObject(searchParams) },
     },
@@ -44,14 +44,14 @@ function UsedCarsList() {
     scrollToNav(navRef);
     refetch([
       {
-        name: "getCarsList",
+        name: "carsList",
         method: apiMethods.getCarsList,
         query: { page, ...searchParamsObject(searchParams) },
       },
     ]);
   }, [page, searchParams]);
 
-  const mappedList = getCarsList?.results.map(carsListMapper) || [];
+  const mappedList = carsList?.results.map(carsListMapper) || [];
   const mappedBrands = getBrandList?.results.map(
     ({ brand, brand_id: brandId }) => {
       return {
@@ -68,7 +68,7 @@ function UsedCarsList() {
       </div>
 
       <div className="col-12 col-md-12 col-lg-9">
-        <p>Результатов: {getCarsList?.totalItems}</p>
+        <p>Результатов: {carsList?.totalItems}</p>
         {loading ? (
           <Loader />
         ) : (
@@ -76,7 +76,7 @@ function UsedCarsList() {
         )}
         <Pagination
           currentPage={page}
-          totalPages={getCarsList?.totalPages}
+          totalPages={carsList?.totalPages}
           searchParams={searchParams}
         />
       </div>
