@@ -11,7 +11,6 @@ yarn-error.log*
 pnpm-debug.log*
 
 # Local environment settings
-.env
 .env.*.local
 
 # Build output
