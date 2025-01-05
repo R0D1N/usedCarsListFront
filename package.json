@@ -1,5 +1,5 @@
 {
-  "name": "poster-qr-menu-admin",
+  "name": "cars-list",
   "private": true,
   "version": "0.0.1",
   "type": "module",
@@ -10,9 +10,9 @@
     "lint:fix": "eslint . --fix",
     "preview": "vite preview"
   },
-  "author": "Grogu Team",
+  "author": "Rodin Kyrylo",
   "license": "ISC",
-  "description": "QR-hub: Menu admin",
+  "description": "App for used cars",
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
