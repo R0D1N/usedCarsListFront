@@ -8,7 +8,9 @@
     "build": "vite build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start:prod": "npm outdated || true && node --env-file=.env --watch server/index.js",
+    "start:dev": "npm outdated || true && MODE=development node --env-file=.env --watch server/index.js"
   },
   "author": "Rodin Kyrylo",
   "license": "ISC",
